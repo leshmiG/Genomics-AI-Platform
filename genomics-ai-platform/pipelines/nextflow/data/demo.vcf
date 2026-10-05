@@ -1,0 +1,13 @@
+##fileformat=VCFv4.2
+##source=genomics-ai-platform-demo
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	S1	S2
+chrDemo	1000	rs1057910	A	C	.	PASS	.	GT	0/0	0/0
+chrDemo	2000	rs1142345	T	C	.	PASS	.	GT	0/0	0|1
+chrDemo	3000	rs12248560	C	T	.	PASS	.	GT	0/0	0/0
+chrDemo	4000	rs1799853	C	T	.	PASS	.	GT	0/0	0/0
+chrDemo	5000	rs1800460	C	T	.	PASS	.	GT	0/0	1|0
+chrDemo	6000	rs1800462	C	G	.	PASS	.	GT	0/0	0/0
+chrDemo	7000	rs3918290	C	T	.	PASS	.	GT	0/1	0/0
+chrDemo	8000	rs4149056	T	C	.	PASS	.	GT	0/0	0/0
+chrDemo	9000	rs4244285	G	A	.	PASS	.	GT	0/1	0/0
+chrDemo	10000	rs4986893	G	A	.	PASS	.	GT	0/0	0/0

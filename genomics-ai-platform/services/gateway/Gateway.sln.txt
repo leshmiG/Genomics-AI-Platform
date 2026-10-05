@@ -1,0 +1,2 @@
+Create the solution once with:  dotnet new sln -n Gateway && dotnet sln add src/Gateway tests/Gateway.Tests
+(CI does this automatically; the solution file is not committed to avoid hand-written GUID noise.)

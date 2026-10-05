@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment: { POSTGRES_USER: gai, POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-gai}", POSTGRES_DB: gai }
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U gai"], interval: 5s, retries: 10 }
+    volumes: [pgdata:/var/lib/postgresql/data]
+  ai-service:
+    build: { context: ., dockerfile: services/ai-service/Dockerfile }
+    environment:
+      GAI_ENV: "${GAI_ENV:-dev}"
+      GAI_INTERNAL_API_KEY: "${GAI_INTERNAL_API_KEY:-dev-internal-key}"
+      GAI_VECTOR_STORE: "${GAI_VECTOR_STORE:-memory}"
+      GAI_PG_DSN: "${GAI_PG_DSN:-postgresql://gai:gai@postgres:5432/gai}"
+    depends_on: { postgres: { condition: service_healthy } }
+    ports: ["8000:8000"]
+  gateway:
+    build: { context: ., dockerfile: services/gateway/Dockerfile }
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      AiService__BaseUrl: http://ai-service:8000
+      AiService__InternalKey: "${GAI_INTERNAL_API_KEY:-dev-internal-key}"
+      Jwt__SigningKey: "${Jwt__SigningKey:-dev-only-signing-key-change-me-0123456789}"
+    depends_on: [ai-service]
+    ports: ["8080:8080"]
+volumes: { pgdata: {} }
